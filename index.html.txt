@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Steam Hype Index</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0f1117;
+      color: #e5e7eb;
+    }
+
+    header {
+      padding: 40px;
+      text-align: center;
+      background: linear-gradient(90deg, #1f2937, #111827);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 36px;
+      color: #60a5fa;
+    }
+
+    p {
+      color: #9ca3af;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: #1f2937;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #374151;
+    }
+
+    .score {
+      font-size: 48px;
+      font-weight: bold;
+      color: #34d399;
+    }
+
+    .label {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #fbbf24;
+    }
+
+    .section-title {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #93c5fd;
+    }
+
+    .email {
+      display: flex;
+      margin-top: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px 0 0 8px;
+      border: none;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+      border-radius: 0 8px 8px 0;
+    }
+
+    button:hover {
+      background: #2563eb;
+    }
+
+    .small {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Steam Hype Index</h1>
+  <p>Indie-first intelligence layer for Steam game momentum</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <div class="section-title">Live Example</div>
+    <div class="score">78</div>
+    <div class="label">WATCH SIGNAL (Stable Growth)</div>
+    <p>Community engagement is increasing and visibility is rising steadily.</p>
+  </div>
+
+  <div class="card">
+    <div class="section-title">What this is</div>
+    <p>
+      Steam Hype Index analyzes real-time signals from Steam, Reddit, YouTube,
+      and news to predict game momentum and market interest.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Use cases</div>
+    <ul>
+      <li>Indie game market validation</li>
+      <li>Publisher scouting signals</li>
+      <li>Wishlist & trend prediction</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="section-title">Early Access</div>
+    <p>Get notified when we open beta access:</p>
+
+    <div class="email">
+      <input type="email" placeholder="Enter your email">
+      <button>Join</button>
+    </div>
+
+    <div class="small">No spam. Indie-focused insights only.</div>
+  </div>
+
+</div>
+
+</body>
+</html>
