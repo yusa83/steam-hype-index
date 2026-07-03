@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steam Hype Index</title>
+<style>
+  :root {
+    --bg: #0b0e13;
+    --panel: #141a22;
+    --panel-2: #1b2431;
+    --border: #263241;
+    --text: #e6edf3;
+    --muted: #8b9bb0;
+    --accent: #66c0f4;
+    --accent-strong: #1a9fff;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+
+  h1, h2, h3 { line-height: 1.2; margin: 0 0 16px; }
+
+  h1 { font-size: 52px; font-weight: 800; letter-spacing: -0.02em; }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  h3 { font-size: 18px; font-weight: 700; }
+
+  p { margin: 0 0 16px; color: var(--muted); }
+
+  .accent { color: var(--accent); }
+
+  .hero {
+    text-align: center;
+    padding: 110px 0 90px;
+    background:
+      radial-gradient(1000px 400px at 50% -10%, rgba(102, 192, 244, 0.18), transparent 70%);
+  }
+
+  .hero p.lead {
+    font-size: 20px;
+    color: var(--text);
+    max-width: 560px;
+    margin: 0 auto 36px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    border: 1px solid var(--accent);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .btn:hover { transform: translateY(-2px); }
+
+  .btn-primary { background: var(--accent-strong); border-color: var(--accent-strong); color: #041018; }
+
+  .btn-primary:hover { background: var(--accent); }
+
+  .btn-ghost { background: transparent; color: var(--accent); }
+
+  .btn-ghost:hover { background: rgba(102, 192, 244, 0.12); }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+  }
+
+  .card .metric {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .card p { margin: 0; }
+
+  .flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .step {
+    width: 100%;
+    max-width: 460px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .step span.num {
+    display: inline-block;
+    min-width: 26px;
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  .arrow { color: var(--muted); font-size: 20px; line-height: 1; }
+
+  .table-scroll { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    min-width: 480px;
+  }
+
+  caption { caption-side: top; }
+
+  th, td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  thead th {
+    background: var(--panel-2);
+    color: var(--muted);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  tbody tr:last-child td { border-bottom: 0; }
+
+  td.score { font-size: 22px; font-weight: 800; color: var(--accent); }
+
+  .tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .tag-high { background: rgba(38, 194, 129, 0.18); color: #34d399; }
+
+  .tag-watch { background: rgba(240, 185, 11, 0.18); color: #f5c451; }
+
+  .tag-ignore { background: rgba(139, 155, 176, 0.18); color: var(--muted); }
+
+  .cta {
+    text-align: center;
+    background:
+      radial-gradient(800px 300px at 50% 120%, rgba(26, 159, 255, 0.22), transparent 70%);
+  }
+
+  .cta h2 { margin-bottom: 28px; }
+
+  footer {
+    padding: 44px 0;
+    text-align: center;
+    border-bottom: 0;
+  }
+
+  footer .brand { font-weight: 800; color: var(--text); font-size: 18px; }
+
+  footer p { margin: 8px 0 0; font-size: 14px; }
+
+  @media (max-width: 760px) {
+    h1 { font-size: 36px; }
+    h2 { font-size: 24px; }
+    .hero { padding: 80px 0 64px; }
+    .cards { grid-template-columns: 1fr; }
+    section { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <h1>Steam <span class="accent">Hype Index</span></h1>
+      <p class="lead">One score.<br>Know if your Steam game has momentum.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#example">View Demo</a>
+        <a class="btn btn-ghost" href="#cta">Join Waitlist</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="metrics">
+    <div class="wrap">
+      <div class="cards">
+        <article class="card">
+          <div class="metric">72</div>
+          <h3>Current Steam Hype Index</h3>
+          <p>A single 0&ndash;100 momentum score for any Steam title.</p>
+        </article>
+        <article class="card">
+          <div class="metric">+18</div>
+          <h3>Prediction 24h</h3>
+          <p>Projected momentum shift over the next day.</p>
+        </article>
+        <article class="card">
+          <div class="metric">A</div>
+          <h3>Market Readiness</h3>
+          <p>Whether the signal is strong enough to act on.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>How it Works</h2>
+      <div class="flow">
+        <div class="step"><span class="num">1</span> Collect Steam signals</div>
+        <div class="arrow">&darr;</div>
+        <div class="step"><span class="num">2</span> Analyze momentum</div>
+        <div class="arrow">&darr;</div>
+        <div class="step"><span class="num">3</span> Predict growth</div>
+        <div class="arrow">&darr;</div>
+        <div class="step"><span class="num">4</span> Recommend actions</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="example">
+    <div class="wrap">
+      <h2>Example</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Game</th>
+              <th scope="col">Steam Hype Index</th>
+              <th scope="col">Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hollow Knight Silksong</td>
+              <td class="score">91</td>
+              <td><span class="tag tag-high">High Interest</span></td>
+            </tr>
+            <tr>
+              <td>Example Indie Game</td>
+              <td class="score">58</td>
+              <td><span class="tag tag-watch">Watch</span></td>
+            </tr>
+            <tr>
+              <td>Unknown Prototype</td>
+              <td class="score">18</td>
+              <td><span class="tag tag-ignore">Ignore</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" class="cta">
+    <div class="wrap">
+      <h2>Build your next Steam hit with data.</h2>
+      <a class="btn btn-primary" href="#cta">Join Early Access</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="brand">Steam Hype Index</div>
+      <p>For Indie Developers</p>
+      <p>&copy; 2026</p>
+    </div>
+  </footer>
+
+</body>
+</html>
